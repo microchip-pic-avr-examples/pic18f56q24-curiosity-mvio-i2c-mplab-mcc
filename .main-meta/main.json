@@ -1,0 +1,54 @@
+{
+    "metaDataVersion": "1.0.0",
+    "category": "com.microchip.ide.project",
+    "content": {
+        "metaDataVersion": "1.3.0",
+        "name": "com.microchip.mcu8.mplabx.project.pic18f56q24-curiosity-mvio-i2c-mplab-mcc",
+        "version": " ",
+        "displayName": "",
+        "projectName": "pic18f56q24-curiosity-mvio-i2c-mplab-mcc",
+        "shortDescription": "PIC18F56Q24 mvio example using I2C to communicate to EEPROM 3 Click board",
+        "ide": {
+            "name": "MPLAB X",
+            "semverRange": ">=6.15.0"
+        },
+        "compiler": [
+            {
+                "name": "XC8",
+                "semverRange": "^2.45.0"
+            }
+        ],
+        "dfp": {
+            "name": "",
+            "semverRange": ""
+        },
+        "configurator": {
+            "name": "",
+            "semverRange": ""
+        },
+        "device": {
+            "metaDataVersion": "1.0.0",
+            "category": "com.microchip.portal.contentRef",
+            "content": {
+                "metaDataVersion": "1.0.0",
+                "category": "com.microchip.device",
+                "name": "PIC18F56Q24",
+                "versionRange": "*"
+            }
+        },
+        "author": "Jamus Griego",
+        "peripherals": [],
+        "keywords": [],
+        "additionalData": {
+            "longDescription": {
+                "metaDataVersion": "1.0.0",
+                "category": "com.microchip.portal.fileRef",
+                "content": {
+                    "metaDataVersion": "1.0.0",
+                    "fileName": "./README.md",
+                    "mimeType": "text/markdown"
+                }
+            }
+        }
+    }
+}
