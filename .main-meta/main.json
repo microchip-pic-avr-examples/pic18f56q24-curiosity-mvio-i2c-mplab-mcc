@@ -19,12 +19,12 @@
             }
         ],
         "dfp": {
-            "name": "",
-            "semverRange": ""
+            "name": "PIC18f-Q_DFP",
+            "semverRange": "^1.23.425"
         },
         "configurator": {
-            "name": "",
-            "semverRange": ""
+            "name": "MCC",
+            "semverRange": ">=5.5.7"
         },
         "device": {
             "metaDataVersion": "1.0.0",
@@ -37,8 +37,8 @@
             }
         },
         "author": "Jamus Griego",
-        "peripherals": [],
-        "keywords": [],
+        "peripherals": ["I2C", "MVIO"],
+        "keywords": ["Melody", "Curiosity"],
         "additionalData": {
             "longDescription": {
                 "metaDataVersion": "1.0.0",
