@@ -181,7 +181,7 @@ int main(void)
 <!-- Explain how to connect hardware and set up software. Depending on complexity, step-by-step instructions and/or tables and/or images can be used -->
 
 ## Operation
-The example code sends a write command using I<sup>2</sup>C to write data to the EEPROM3 Click board delays for 50ms and then initiates a I<sup>2</sup>C read command to read from the EEPROM3 Click board.
+The example code sends a write command using the I<sup>2</sup>C Module to write data to the EEPROM3 Click board delays for 50ms and then initiates a I<sup>2</sup>C read command to read from the EEPROM3 Click board.
 <!-- Explain how to operate the example. Depending on complexity, step-by-step instructions and/or tables and/or images can be used -->
 saleae Capture of these I<sup>2</sup>C transactions
 
