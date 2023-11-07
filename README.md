@@ -8,8 +8,8 @@
 This example shows how to use MVIO for two different voltage domains, one voltage for the Microcontroller and a different one for the Sensor or in this example an EEPROM using I<sup>2</sup>C communication.
 ## Related Documentation
 
-- [PIC18F-Q24 Family Product Page](https://www.microchip.com/en-us/product/PIC18F56Q24#Overview)
-
+- [PIC18F-Q24 Family Product Page](https://www.microchip.com/en-us/product/PIC18F56Q24)
+- [PIC18F56Q24 Data Sheet](https://www.microchip.com/DS40002503)
 ## Software Used
 
 - [MPLAB® X IDE](http://www.microchip.com/mplab/mplab-x-ide) v6.15 or newer
@@ -27,6 +27,8 @@ This example shows how to use MVIO for two different voltage domains, one voltag
 - [EEPROM 3 Click](https://www.mikroe.com/eeprom-3-click) from MIKROE 
 
 <img src="images/eeprom-3-click.png" width = "600"><br>
+
+- [Saleae Logic Analyzer](https://www.saleae.com/)
 
 ## Prerequisites
 
@@ -179,9 +181,12 @@ int main(void)
 <!-- Explain how to connect hardware and set up software. Depending on complexity, step-by-step instructions and/or tables and/or images can be used -->
 
 ## Operation
-The example code sends a write command using I2C to write data to the EEPROM3 Click board delays for 50ms and then initiates a I2C read command to read from the EEPROM3 Click board.
+The example code sends a write command using I<sup>2</sup>C to write data to the EEPROM3 Click board delays for 50ms and then initiates a I<sup>2</sup>C read command to read from the EEPROM3 Click board.
 <!-- Explain how to operate the example. Depending on complexity, step-by-step instructions and/or tables and/or images can be used -->
+saleae Capture of these I<sup>2</sup>C transactions
+
+<br><img src="images/saleae_analyzer.png"><br>
 
 ## Summary
-
+After Programming the device the MVIO module converts the 3.3V signals on the I2C bus to 5V for the sensor and the same the other way 5V signal from the Sensor is converted to 3.3V for the microcontroller to interpret.
 <!-- Summarize what the example has shown -->
