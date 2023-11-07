@@ -287,7 +287,7 @@
         <property key="memories.programmemory.ranges" value="0-ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
-                  value="C:/8bit examples/pic18f56q24-curiosity-mvio-i2c-mplab-mcc/pic18f56q24-curiosity-mvio-i2c-mplab-melody.X/debug/free/pic18f56q24-curiosity-mvio-i2c-mplab-melody_ptg"/>
+                  value="C:/MPLAB Projects/pic18f56q24-mvio-i2c-mcc.X/debug/default/pic18f56q24-mvio-i2c-mcc_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
@@ -533,7 +533,7 @@
         <property key="memories.programmemory.ranges" value="0-ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
-                  value="C:/8bit examples/pic18f56q24-curiosity-mvio-i2c-mplab-mcc/pic18f56q24-curiosity-mvio-i2c-mplab-melody.X/debug/pro/pic18f56q24-curiosity-mvio-i2c-mplab-melody_ptg"/>
+                  value="C:/MPLAB Projects/pic18f56q24-mvio-i2c-mcc.X/debug/default/pic18f56q24-mvio-i2c-mcc_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

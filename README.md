@@ -70,9 +70,12 @@ I2C Connections
 
 <br><img src="images/project_resources_mvio.png">
 
-notice
+These are the settings for this example. 
+- I/O Monitor: Enable
+- Hysteresis: Enable
+- LVD Trip Point: Disabled
 
-<br><img src="images/i2c_host_easy_view.png">
+<br><img src="images/vddio2_easy_view.png">
 
 ## Setup
 
@@ -98,9 +101,44 @@ In the Pin Grid View window: Click on RC4 for **SCL1** & RC3 for **SDA1** see be
 
 <br><img src="images/pin_grid_view.png">
 
-<br><img src="images/pins_i2c.png">
+In the project resources window: check the dropdown box for **System** => Click **Pins**.
 
+<br><img src="images/project_resources_pins.png">
+
+The Pins Tab shows up in MPLAB on the right side: use the drop down arrows to select Advanced Input Buffer settings to be **I2C** specific For SCL1 and I2C1
+
+<br><img src="images/pins_i2c.png">
+Code: main.c
 ```
+#include "mcc_generated_files/system/system.h"
+uint8_t buffer[10] = { 0 } ;
+uint8_t ii =0x0;
+uint8_t i =0x4;
+
+void I2C_DummyWrite(void){
+     
+    I2C1ADB1=0b10101100; //Address Buffer, This is how we say hi
+    I2C1CNT=2; // Byte Count if added gives extra byte
+        
+    I2C1TXB=0b00000001;
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode 
+    
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    
+    I2C1TXB=i;
+    while(!I2C1STAT1bits.TXBE);   
+}
+    
+void I2C_Read(void){
+    
+    
+    I2C1ADB1=0b10101101;
+    I2C1CNT=1;
+    I2C1CON0bits.S=1; 
+    while(!I2C1STAT1bits.RXBF);//
+    buffer[9]=I2C1RXB;  
+}
+
 int main(void)
 {
     SYSTEM_Initialize();
