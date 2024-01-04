@@ -11,7 +11,7 @@
 */
 
 /*
-© [2023] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -80,7 +80,23 @@ void  INTERRUPT_Initialize (void)
 void __interrupt() INTERRUPT_InterruptManager (void)
 {
     // interrupt handler
-    if(PIE7bits.I2C1EIE == 1 && PIR7bits.I2C1EIF == 1)
+    if(PIE1bits.I2C2EIE == 1 && PIR1bits.I2C2EIF == 1)
+    {
+        I2C2_ERROR_ISR();
+    }
+    else if(PIE1bits.I2C2RXIE == 1 && PIR1bits.I2C2RXIF == 1)
+    {
+        I2C2_RX_ISR();
+    }
+    else if(PIE1bits.I2C2IE == 1 && PIR1bits.I2C2IF == 1)
+    {
+        I2C2_ISR();
+    }
+    else if(PIE1bits.I2C2TXIE == 1 && PIR1bits.I2C2TXIF == 1)
+    {
+        I2C2_TX_ISR();
+    }
+    else if(PIE7bits.I2C1EIE == 1 && PIR7bits.I2C1EIF == 1)
     {
         I2C1_ERROR_ISR();
     }

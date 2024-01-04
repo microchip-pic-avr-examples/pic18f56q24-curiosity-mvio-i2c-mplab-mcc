@@ -12,7 +12,7 @@
 */
 
 /*
-© [2023] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -41,7 +41,7 @@ void PIN_MANAGER_Initialize(void)
     LATx registers
     */
     LATA = 0x0;
-    LATB = 0x0;
+    LATB = 0x6;
     LATC = 0x18;
     LATD = 0x0;
     LATE = 0x0;
@@ -51,7 +51,7 @@ void PIN_MANAGER_Initialize(void)
     TRISx registers
     */
     TRISA = 0xFF;
-    TRISB = 0xFF;
+    TRISB = 0xF9;
     TRISC = 0x67;
     TRISD = 0xFF;
     TRISE = 0xF;
@@ -61,7 +61,7 @@ void PIN_MANAGER_Initialize(void)
     ANSELx registers
     */
     ANSELA = 0xFF;
-    ANSELB = 0xFF;
+    ANSELB = 0xF9;
     ANSELC = 0x7;
     ANSELE = 0x7;
     ANSELF = 0xFF;
@@ -70,7 +70,7 @@ void PIN_MANAGER_Initialize(void)
     WPUx registers
     */
     WPUA = 0x0;
-    WPUB = 0x0;
+    WPUB = 0x6;
     WPUC = 0x0;
     WPUD = 0x0;
     WPUE = 0x0;
@@ -80,8 +80,8 @@ void PIN_MANAGER_Initialize(void)
     ODx registers
     */
     ODCONA = 0x0;
-    ODCONB = 0x0;
-    ODCONC = 0x0;
+    ODCONB = 0x6;
+    ODCONC = 0x18;
     ODCOND = 0x0;
     ODCONE = 0x0;
     ODCONF = 0x0;
@@ -111,8 +111,8 @@ void PIN_MANAGER_Initialize(void)
     */
     RB1I2C = 0x0;
     RB2I2C = 0x0;
-    RC3I2C = 0x1;
-    RC4I2C = 0x1;
+    RC3I2C = 0x0;
+    RC4I2C = 0x0;
     RD0I2C = 0x0;
     RD1I2C = 0x0;
     /**
@@ -122,6 +122,10 @@ void PIN_MANAGER_Initialize(void)
     RC4PPS = 0x23;  //RC4->I2C1:SCL1;
     I2C1SDAPPS = 0x13;  //RC3->I2C1:SDA1;
     RC3PPS = 0x24;  //RC3->I2C1:SDA1;
+    I2C2SCLPPS = 0x9;  //RB1->I2C2:SCL2;
+    RB1PPS = 0x25;  //RB1->I2C2:SCL2;
+    I2C2SDAPPS = 0xA;  //RB2->I2C2:SDA2;
+    RB2PPS = 0x26;  //RB2->I2C2:SDA2;
 
    /**
     IOCx registers 

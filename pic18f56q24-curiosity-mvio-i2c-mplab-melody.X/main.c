@@ -11,7 +11,7 @@
 */
 
 /*
-© [2023] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -31,180 +31,143 @@
     THIS SOFTWARE.
 */
 #include "mcc_generated_files/system/system.h"
-uint8_t buffer[10] = { 0 } ;
-uint8_t ii =0x0;
-uint8_t i =0x4;
-
-//#define Read=0b10101101;
-//#define Write=0b10101100;   
-
-
-        
-           
-            
-
-
-void I2C_RAW_Write (void)
-{
-        while(ii<0xFF)
-    { 
-      I2C1ADB1=0b10101100; //address
-        
-        
-        I2C1CNT=3; //byte count
-        I2C1CON0bits.S=1;
-        
-        I2C1TXB=0b00000001;
-        while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
-        
-        
-      
-        
-            
-        I2C1TXB=ii;
-        while(!I2C1STAT1bits.TXBE);    
-        I2C1CON0bits.S=1;
-        I2C1TXB=ii;// Write address is sent into the TX buffer
-        while(!I2C1STAT1bits.TXBE);
-        //I2C1TXB=0xDD; ////Dummy Data
-        ii++;
-        
-        __delay_ms(50);
-        
-      }
-       
-        //        for(ii=0x0; ii<0xFF; ii++) //init,test,update
-//{
-//        
-//        while(!I2C1STAT1bits.TXBE); //waits till transmitter is empty
-//        I2C1TXB=ii;// Write address is sent into the TX buffer
-//        //I2C1TXB=0xDD; ////Dummy Data
-//        __delay_ms(50); 
-//        
-//        
-//}
-}
-        
-        
-        
-
-
-
-void I2C_DummyWrite(void){
+#include "mcc_generated_files/i2c_host/i2c1.h"
+#include "mcc_generated_files/i2c_host/i2c_host_event_types.h"
      
-    I2C1ADB1=0b10101100; //Address Buffer, This is how we say hi
-    I2C1CNT=2; // Byte Count if added gives extra byte
-    
-    
-    I2C1TXB=0b00000001;
-    I2C1CON0bits.S=1; // Sets I2C host Start Mode 
-    
-    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
-    
-    I2C1TXB=i;
-    while(!I2C1STAT1bits.TXBE);
-   
-}
-    
-    
-//    __delay_ms(50);
-    
-void I2C_Read(void){
-    
-    
-    I2C1ADB1=0b10101101;
-    I2C1CNT=1;
-//    I2C1CON0bits.RSEN=1;
-    I2C1CON0bits.S=1; 
-    while(!I2C1STAT1bits.RXBF);//
-    buffer[9]=I2C1RXB;
-    
-   // i++;
-    
-}
+#define I2C1_CLIENT_ADDR                0b01010110
+#define I2C1_REG_ADDR                   0x0102
+#define I2C_CLIENT_ADDR                 0x49
+#define MCP9800_REG_ADDR_CONFIG         0x01
+#define MCP9800_REG_ADDR_TEMPERATURE    0x00
+#define CONFIG_DATA_12BIT_RESOLUTION    0x60
+#define I2C_RW_BIT                      0x01
 
-    
-    
-//    uint8_t * ptr = buffer;
-//        
-//    
-//    while(!I2C1STAT1bits.RXBF)
-//      {
-//      if( I2C1ERRbits.NACKIF ) goto I2C_EXIT;
-//      
-//    
-//   
-//    
-//    *ptr++ = I2C1RXB;
-//    }
-//    I2C_EXIT:
-//    I2C1STAT1bits.CLRBF = 1;
-    
-    
+void I2C_1ByteAddress(uint8_t address, uint8_t reg, uint8_t data);
+void I2C_2_N_2(uint8_t address, uint16_t reg, uint16_t data);
+uint16_t I2C1_randomRead2Byte(uint8_t address, uint16_t reg);
+uint16_t I2C1_Read_1ByteAdd_2ByteData(uint8_t address, uint8_t reg);
 
-     
+/*
+    Main application
+*/
 
 int main(void)
 {
+    uint16_t rawTempValue;
+    uint16_t eepromReadValue;
+
     SYSTEM_Initialize();
-    //I2C1_Initialize();
-    
-    //registers for I2C control
-    
-    //for Pins RC3
-    
-    RC3I2Cbits.SLEW=0b01; //Slew Control Register
-    RC3I2Cbits.TH=0b01; //Input Threshold
-    
-    //for Pins RC4
-    
-    RC4I2Cbits.SLEW=0b01;   //Slew Control Register
-    RC4I2Cbits.TH=0b01;   //Input Threshold
-    
-    I2C1CON0bits.MODE=0b100;  //Sets the peripheral for I2C control     
-    
-    I2C1CON2bits.SDAHT=0b10; // Data hold time 3ns
-    I2C1CON2bits.BFRET=00; //8 I2CxCLK        
-    
-    I2C1CON3bits.FME=1; // Fast mode Enabled
-    
-            
-    I2C1CLKbits.CLK=0b00000; //Clock as Fosc/4
-    
-    I2C1BAUD = 0x27; //sets baud rate at 39
-    I2C1CON0bits.EN=1;  // Enables the I2C Modules 
-    
-    
-    // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts 
-            
-    // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global Interrupts 
-    // Use the following macros to: 
 
-    // Enable the Global High Interrupts 
-    //INTERRUPT_GlobalInterruptHighEnable(); 
+    I2C_1ByteAddress(I2C_CLIENT_ADDR, MCP9800_REG_ADDR_CONFIG , CONFIG_DATA_12BIT_RESOLUTION);
+    __delay_ms(2);
+    rawTempValue = I2C1_Read_1ByteAdd_2ByteData(I2C_CLIENT_ADDR, MCP9800_REG_ADDR_TEMPERATURE);
+    __delay_ms(5);
+    I2C_2_N_2(I2C1_CLIENT_ADDR, I2C1_REG_ADDR, rawTempValue);
+    __delay_ms(5);
+    eepromReadValue = I2C1_randomRead2Byte(I2C1_CLIENT_ADDR,I2C1_REG_ADDR);
 
-    // Disable the Global High Interrupts 
-    //INTERRUPT_GlobalInterruptHighDisable(); 
-
-    // Enable the Global Low Interrupts 
-    //INTERRUPT_GlobalInterruptLowEnable(); 
-
-    // Disable the Global Low Interrupts 
-    //INTERRUPT_GlobalInterruptLowDisable(); 
-
-//__delay_ms(500);
-       
-    
-    //I2C_RAW_Write();
-            I2C_DummyWrite();  
-            __delay_ms(50);
-            I2C_Read();
-        
     while(1)
-    { 
-      
-      
-        
-       
-    }    
+    {
+    }   
 }
+
+void I2C_1ByteAddress(uint8_t address, uint8_t reg, uint8_t data){
+   
+    I2C2ADB1 = (uint8_t) (address<< 1);
+    I2C2CNTL = 2; 
+    I2C2TXB = reg;
+    I2C2CON0bits.S=1; // Sets I2C host Start Mode   
+    while(!I2C2STAT1bits.TXBE);// Write address is sent into the TX buffer
+//    I2C1CNTL = 1; 
+    I2C2TXB = data;
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+   }
+
+void I2C_2_N_2(uint8_t address, uint16_t reg, uint16_t data){
+    uint8_t regLow = reg & 0xFF;
+    uint8_t regHigh = reg >> 8;
+    uint8_t dataLow = data & 0xFF;
+    uint8_t dataHigh = data >> 8;
+    
+    I2C1ADB1 = (uint8_t) (address<< 1);
+    I2C1TXB = regHigh;
+    I2C1CNTL = 1; 
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode   
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C1CNTL = 1; 
+    I2C1TXB = regLow;
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C1CNTL = 1;
+    I2C1TXB = dataLow;
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C1CNTL = 1;
+    I2C1TXB = dataHigh;
+//    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+//    wait4Stop();
+   }
+
+uint16_t I2C1_randomRead2Byte(uint8_t address, uint16_t reg){
+    uint8_t regLow = reg & 0xFF;
+    uint8_t regHigh = reg >> 8;
+    uint8_t dataLow;
+    uint16_t dataHigh;
+    uint8_t data;
+   
+    I2C1ADB1 = (uint8_t) (address<< 1);
+    I2C1TXB = regHigh;
+    I2C1CNTL = 1; 
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode   
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C1CNTL = 1; 
+    I2C1TXB = regLow;
+    I2C1CON0bits.RSEN = 1;
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode  
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    
+    
+    while(!I2C1CON0bits.MDR);//
+    address = (uint8_t) (address<< 1);
+    I2C1ADB1 = (uint8_t) (address | 1);
+    I2C1CNTL = 2; 
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode  
+    I2C1CON0bits.RSEN = 0;
+    while(!I2C1STAT1bits.RXBF);
+    dataLow = I2C1RXB; 
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode  
+    while(!I2C1STAT1bits.RXBF);
+    dataHigh = I2C1RXB;
+
+    data = dataHigh << 8;
+    data = data | dataLow;
+    return data;
+   }
+
+uint16_t I2C1_Read_1ByteAdd_2ByteData(uint8_t address, uint8_t reg){
+    uint8_t dataLow;
+    uint8_t dataHigh;
+    uint16_t data;
+
+    I2C2ADB1 = (uint8_t) (address<< 1);
+    I2C2TXB = reg;
+    I2C2CNTL = 1; 
+    I2C2CON0bits.S=1; // Sets I2C host Start Mode   
+    while(!I2C2STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C2CON0bits.RSEN = 1;
+
+    while(!I2C2CON0bits.MDR);//    
+
+    address = (uint8_t) (address<< 1);
+    I2C2ADB1 = (uint8_t) (address | 1);
+    I2C2CNTL = 2; 
+    I2C2CON0bits.S=1; // Sets I2C host Start Mode  
+    I2C2CON0bits.RSEN = 0;
+    while(!I2C2STAT1bits.RXBF);
+    dataLow = I2C2RXB;
+    I2C2CON0bits.S=1; // Sets I2C host Start Mode  
+    while(!I2C2STAT1bits.RXBF);
+    dataHigh = I2C2RXB;        
+
+    data = dataHigh << 8;
+    data = data | dataLow;
+    return data;
+   }

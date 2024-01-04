@@ -10,7 +10,7 @@
  * @version Driver Version 1.0.1
 */
 /*
-© [2023] Microchip Technology Inc. and its subsidiaries.
+© [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -43,6 +43,7 @@
 #include "../system/clock.h"
 #include "../system/pins.h"
 #include "../i2c_host/i2c1.h"
+#include "../i2c_host/i2c2.h"
 #include "../system/mvio/vddio2.h"
 #include "../system/interrupt.h"
 

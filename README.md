@@ -2,10 +2,10 @@
 
 [![MCHP](images/microchip.png)](https://www.microchip.com)
 
-# Multi-Voltage I/O (MVIO) Example Using I2C to communicate with EEPROM 3 Click board using the PIC18F56Q24 Microcontroller Generated with MCC Melody
+# Multi-Voltage I/O (MVIO) Example Using I2C to communicate with an EEPROM 3 Click board and MCP9800 using the PIC18F56Q24 Microcontroller Generated with MCC Melody
 
 <!-- This is where the introduction to the example goes, including mentioning the peripherals used -->
-This example shows how to use MVIO for two different voltage domains, one voltage for the Microcontroller and a different one for the Sensor or in this example an EEPROM using I<sup>2</sup>C communication.
+This example shows how to use MVIO for two different voltage domains, one voltage for the Microcontroller and a different one for the Sensor or in this example an EEPROM using I<sup>2</sup>C communication. This example communicates with a MC9800 Temperature Sensor and saves the data to the EEPROM 3 click board.
 ## Related Documentation
 
 - [PIC18F-Q24 Family Product Page](https://www.microchip.com/en-us/product/PIC18F56Q24)
@@ -23,6 +23,10 @@ This example shows how to use MVIO for two different voltage domains, one voltag
 - [PIC18F56Q24 Curiosity Nano](https://www.microchip.com/en-us/development-tools-tools-and-software/development-tools-category-explorer?category=curiosityboards&subcategory=8-bit-curiosity-nano-boards) Development Board is used as a test platform.
 
 <img src="images/56Q24-Board.png" width = "600"><br>
+
+- [PICkit Serial I2C Demo Board](https://www.microchip.com/en-us/development-tool/PKSERIAL-I2C1) MCP9800 sensor on this board is used for the temperature sensor.
+
+<img src="images/i2c_demo_board.png" width = "600"><br>
 
 - [EEPROM 3 Click](https://www.mikroe.com/eeprom-3-click) from MIKROE 
 
@@ -43,6 +47,9 @@ A power supply must be connected to the V<sub>DDIO2</sub> pin. There are two pos
 **b.** Using Curiosity Nano, use V<sub>BUS</sub> as power supply, simply by connecting a wire between V<sub>BUS</sub> and V<sub>DDIO2</sub>.
 
 I2C Connections
+- [MCP9800 Temperature sensor
+<br><img src="images/wiring_diagram.png" width = "600"><br>
+- [EEPROM 3 Click Board
 <br><img src="images/i2c_connections.png" width = "600"><br>
 
 ## Initial Setup
@@ -98,95 +105,186 @@ In the I2C_Host window: go to the easy view tab, and use the dropdown box to sel
 This is what the window will change to after making this setting
 
 <br><img src="images/i2c_host_easy_view.png">
+   1. Open the **Drivers** drop-down
+   2. Click the green plus sign next to **I2C_Host** peripheral to add them your project.
 
-In the Pin Grid View window: Click on RC4 for **SCL1** & RC3 for **SDA1** see below
+<br><img src="images/add_i2c.png">
 
-<br><img src="images/pin_grid_view.png">
+In the project resources window: Click the dropdown box for Drivers => I2C => click **I2C2_Host**
+
+<br><img src="images/project_resources_i2c1.png">
+
+In the I2C_Host window: go to the easy view tab, verify the setting match the picture below.
+
+<br><img src="images/i2c2_host_easy_view.png">
+
+In the Pin Grid View window: For I2C1 click on RC4 for **SCL1** & RC3 for **SDA1**. For I2C2 click on RB1 for **SCL2** & RB2 for **SDA2**. see below
+
+<br><img src="images/pin_grid_view1.png">
 
 In the project resources window: check the dropdown box for **System** => Click **Pins**.
 
 <br><img src="images/project_resources_pins.png">
 
-The Pins Tab shows up in MPLAB on the right side: use the drop down arrows to select Advanced Input Buffer settings to be **I2C** specific For SCL1 and I2C1
+The Pins Tab shows up in MPLAB on the right side: select start high for all I<sup>2</sup>C pins
 
-<br><img src="images/pins_i2c.png">
+<br><img src="images/pins_i2c1.png">
 Code: main.c
 ```
 #include "mcc_generated_files/system/system.h"
-uint8_t buffer[10] = { 0 } ;
-uint8_t ii =0x0;
-uint8_t i =0x4;
-
-void I2C_DummyWrite(void){
+#include "mcc_generated_files/i2c_host/i2c1.h"
+#include "mcc_generated_files/i2c_host/i2c_host_event_types.h"
      
-    I2C1ADB1=0b10101100; //Address Buffer, This is how we say hi
-    I2C1CNT=2; // Byte Count if added gives extra byte
-        
-    I2C1TXB=0b00000001;
-    I2C1CON0bits.S=1; // Sets I2C host Start Mode 
-    
-    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
-    
-    I2C1TXB=i;
-    while(!I2C1STAT1bits.TXBE);   
-}
-    
-void I2C_Read(void){
-    
-    
-    I2C1ADB1=0b10101101;
-    I2C1CNT=1;
-    I2C1CON0bits.S=1; 
-    while(!I2C1STAT1bits.RXBF);//
-    buffer[9]=I2C1RXB;  
-}
+#define I2C1_CLIENT_ADDR                0b01010110
+#define I2C1_REG_ADDR                   0x0102
+#define I2C_CLIENT_ADDR                 0x49
+#define MCP9800_REG_ADDR_CONFIG         0x01
+#define MCP9800_REG_ADDR_TEMPERATURE    0x00
+#define CONFIG_DATA_12BIT_RESOLUTION    0x60
+
+void I2C_1ByteAddress(uint8_t address, uint8_t reg, uint8_t data);
+void I2C_2_N_2(uint8_t address, uint16_t reg, uint16_t data);
+uint16_t I2C1_randomRead2Byte(uint8_t address, uint16_t reg);
+uint16_t I2C1_Read_1ByteAdd_2ByteData(uint8_t address, uint8_t reg);
 
 int main(void)
 {
+    uint16_t rawTempValue;
+    uint16_t eepromReadValue;
+
     SYSTEM_Initialize();
-    //I2C1_Initialize();
-    //registers for I2C control
-    
-    //for Pins RC3
-    
-    RC3I2Cbits.SLEW=0b01; //Slew Control Register
-    RC3I2Cbits.TH=0b01; //Input Threshold
-    
-    //for Pins RC4
-    
-    RC4I2Cbits.SLEW=0b01;   //Slew Control Register
-    RC4I2Cbits.TH=0b01;   //Input Threshold
-    
-    I2C1CON0bits.MODE=0b100;  //Sets the peripheral for I2C control     
-    
-    I2C1CON2bits.SDAHT=0b10; // Data hold time 3ns
-    I2C1CON2bits.BFRET=00; //8 I2CxCLK        
-    
-    I2C1CON3bits.FME=1; // Fast mode Enabled
-    
-            
-    I2C1CLKbits.CLK=0b00000; //Clock as Fosc/4
-    
-    I2C1BAUD = 0x27; //sets baud rate at 39
-    I2C1CON0bits.EN=1;  // Enables the I2C Modules 
-            I2C_DummyWrite();  
-            __delay_ms(50);
-            I2C_Read();
-        
+
+    I2C_1ByteAddress(I2C_CLIENT_ADDR, MCP9800_REG_ADDR_CONFIG , CONFIG_DATA_12BIT_RESOLUTION);
+    __delay_ms(2);
+    rawTempValue = I2C1_Read_1ByteAdd_2ByteData(I2C_CLIENT_ADDR, MCP9800_REG_ADDR_TEMPERATURE);
+    __delay_ms(5);
+    I2C_2_N_2(I2C1_CLIENT_ADDR, I2C1_REG_ADDR, rawTempValue);
+    __delay_ms(5);
+    eepromReadValue = I2C1_randomRead2Byte(I2C1_CLIENT_ADDR,I2C1_REG_ADDR);
+
     while(1)
-    {       
-    }
-}      
+    {
+    }   
+}
+
+void I2C_1ByteAddress(uint8_t address, uint8_t reg, uint8_t data){
+   
+    I2C2ADB1 = (uint8_t) (address<< 1);
+    I2C2CNTL = 2; 
+    I2C2TXB = reg;
+    I2C2CON0bits.S=1; // Sets I2C host Start Mode   
+    while(!I2C2STAT1bits.TXBE);// Write address is sent into the TX buffer
+//    I2C1CNTL = 1; 
+    I2C2TXB = data;
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+   }
+
+void I2C_2_N_2(uint8_t address, uint16_t reg, uint16_t data){
+    uint8_t regLow = reg & 0xFF;
+    uint8_t regHigh = reg >> 8;
+    uint8_t dataLow = data & 0xFF;
+    uint8_t dataHigh = data >> 8;
+    
+    I2C1ADB1 = (uint8_t) (address<< 1);
+    I2C1TXB = regHigh;
+    I2C1CNTL = 1; 
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode   
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C1CNTL = 1; 
+    I2C1TXB = regLow;
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C1CNTL = 1;
+    I2C1TXB = dataLow;
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C1CNTL = 1;
+    I2C1TXB = dataHigh;
+//    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+//    wait4Stop();
+   }
+
+uint16_t I2C1_randomRead2Byte(uint8_t address, uint16_t reg){
+    uint8_t regLow = reg & 0xFF;
+    uint8_t regHigh = reg >> 8;
+    uint8_t dataLow;
+    uint16_t dataHigh;
+    uint8_t data;
+   
+    I2C1ADB1 = (uint8_t) (address<< 1);
+    I2C1TXB = regHigh;
+    I2C1CNTL = 1; 
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode   
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C1CNTL = 1; 
+    I2C1TXB = regLow;
+    I2C1CON0bits.RSEN = 1;
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode  
+    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
+    
+    
+    while(!I2C1CON0bits.MDR);//
+    address = (uint8_t) (address<< 1);
+    I2C1ADB1 = (uint8_t) (address | 1);
+    I2C1CNTL = 2; 
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode  
+    I2C1CON0bits.RSEN = 0;
+    while(!I2C1STAT1bits.RXBF);
+    dataLow = I2C1RXB; 
+    I2C1CON0bits.S=1; // Sets I2C host Start Mode  
+    while(!I2C1STAT1bits.RXBF);
+    dataHigh = I2C1RXB;
+
+    data = dataHigh << 8;
+    data = data | dataLow;
+    return data;
+   }
+
+uint16_t I2C1_Read_1ByteAdd_2ByteData(uint8_t address, uint8_t reg){
+    uint8_t dataLow;
+    uint8_t dataHigh;
+    uint16_t data;
+
+    I2C2ADB1 = (uint8_t) (address<< 1);
+    I2C2TXB = reg;
+    I2C2CNTL = 1; 
+    I2C2CON0bits.S=1; // Sets I2C host Start Mode   
+    while(!I2C2STAT1bits.TXBE);// Write address is sent into the TX buffer
+    I2C2CON0bits.RSEN = 1;
+
+    while(!I2C2CON0bits.MDR);//    
+
+    address = (uint8_t) (address<< 1);
+    I2C2ADB1 = (uint8_t) (address | 1);
+    I2C2CNTL = 2; 
+    I2C2CON0bits.S=1; // Sets I2C host Start Mode  
+    I2C2CON0bits.RSEN = 0;
+    while(!I2C2STAT1bits.RXBF);
+    dataLow = I2C2RXB;
+    I2C2CON0bits.S=1; // Sets I2C host Start Mode  
+    while(!I2C2STAT1bits.RXBF);
+    dataHigh = I2C2RXB;        
+
+    data = dataHigh << 8;
+    data = data | dataLow;
+    return data;
+   }
+
 ```
-<!-- Explain how to connect hardware and set up software. Depending on complexity, step-by-step instructions and/or tables and/or images can be used -->
+
 
 ## Operation
-The example code sends a write command using the I<sup>2</sup>C Module to write data to the EEPROM3 Click board delays for 50ms and then initiates a I<sup>2</sup>C read command to read from the EEPROM3 Click board.
-<!-- Explain how to operate the example. Depending on complexity, step-by-step instructions and/or tables and/or images can be used -->
+The example code starts with a I<sup>2</sup>C command to configure the MPC9800 then sends an I<sup>2</sup>C command to read the temperature Sensor. The 3rd step sends an I<sup>2</sup>C command to write the data to the EEPROM3 Click board delays for 5ms and then sends an I<sup>2</sup>C command to read from the EEPROM3 Click board. The MVIO is converting 5V to 3.3V and 3.3V to 5V when communicating with the EEPROM 3 Click board.
+
 saleae Capture of these I<sup>2</sup>C transactions
 
-<br><img src="images/saleae_analyzer.png"><br>
+ - MCP980 I<sup>2</sup>C Command for Configuration of Temperature sensor
+ <br><img src="images/saleae_MCP9800_Config.png"><br>
+ - MCP9800 I<sup>2</sup>C Read Command for Temperature Sensor
+<br><img src="images/saleae_mcp9800_read.png"><br>
+ - EEPROM 3 Click I<sup>2</sup>C Write command
+<br><img src="images/saleae_eeprom_write.png"><br>
+ - EEPROM 3 Click I<sup>2</sup>C Read command
+<br><img src="images/saleae_eeprom_read.png"><br>
 
 ## Summary
-After Programming the device the MVIO module converts the 3.3V signals on the I2C bus to 5V for the sensor and the same the other way 5V signal from the Sensor is converted to 3.3V for the microcontroller to interpret.
-<!-- Summarize what the example has shown -->
+After Programming the device the PIC18F56Q24 sends an I<sup>2</sup>C command to configure the temperature sensor and then sends a command to read the temperature sensor. Now the microcontroller sends the data received to the EEPROM via I<sup>2</sup>C during these commands the MVIO module converts the 3.3V signals on the I<sup>2</sup>C bus to 5V for the EEPROM and the same the other way 5V signal from the EEPROM is converted to 3.3V for the microcontroller to interpret. These voltage levels can be seen in the saleae traces above.
+
