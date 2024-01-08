@@ -141,11 +141,16 @@ Code: main.c
 #define MCP9800_REG_ADDR_CONFIG         0x01
 #define MCP9800_REG_ADDR_TEMPERATURE    0x00
 #define CONFIG_DATA_12BIT_RESOLUTION    0x60
+#define I2C_RW_BIT                      0x01
 
 void I2C_1ByteAddress(uint8_t address, uint8_t reg, uint8_t data);
 void I2C_2_N_2(uint8_t address, uint16_t reg, uint16_t data);
 uint16_t I2C1_randomRead2Byte(uint8_t address, uint16_t reg);
 uint16_t I2C1_Read_1ByteAdd_2ByteData(uint8_t address, uint8_t reg);
+
+/*
+    Main application
+*/
 
 int main(void)
 {
@@ -174,7 +179,6 @@ void I2C_1ByteAddress(uint8_t address, uint8_t reg, uint8_t data){
     I2C2TXB = reg;
     I2C2CON0bits.S=1; // Sets I2C host Start Mode   
     while(!I2C2STAT1bits.TXBE);// Write address is sent into the TX buffer
-//    I2C1CNTL = 1; 
     I2C2TXB = data;
     while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
    }
@@ -198,8 +202,6 @@ void I2C_2_N_2(uint8_t address, uint16_t reg, uint16_t data){
     while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
     I2C1CNTL = 1;
     I2C1TXB = dataHigh;
-//    while(!I2C1STAT1bits.TXBE);// Write address is sent into the TX buffer
-//    wait4Stop();
    }
 
 uint16_t I2C1_randomRead2Byte(uint8_t address, uint16_t reg){
@@ -267,7 +269,6 @@ uint16_t I2C1_Read_1ByteAdd_2ByteData(uint8_t address, uint8_t reg){
     data = data | dataLow;
     return data;
    }
-
 ```
 
 
