@@ -5,7 +5,7 @@
         "metaDataVersion": "1.3.0",
         "name": "com.microchip.mcu8.mplabx.project.pic18f56q24-curiosity-mvio-i2c-mplab-mcc",
         "version": "1.0.0",
-        "displayName": "pic18f56q24-curiosity-mvio-i2c-mplab-mcc",
+        "displayName": "Temperature Sensor I2C MVIO and EEPROM 3 CLICK",
         "projectName": "pic18f56q24-curiosity-mvio-i2c-mplab-mcc",
         "shortDescription": "PIC18F56Q24 mvio example using I2C to communicate to EEPROM 3 Click board",
         "ide": {
