@@ -20,15 +20,15 @@ This example shows how to use MVIO for two different voltage domains, one voltag
 
 
 ## Hardware Used
-- [PIC18F56Q24 Curiosity Nano](https://www.microchip.com/en-us/development-tools-tools-and-software/development-tools-category-explorer?category=curiosityboards&subcategory=8-bit-curiosity-nano-boards) Development Board is used as a test platform.
+- [PIC18F56Q24 Curiosity Nano](https://www.microchip.com/en-us/development-tools-tools-and-software/development-tools-category-explorer?category=curiosityboards&subcategory=8-bit-curiosity-nano-boards) Development Board is used as a test platform
 
 <img src="images/56Q24-Board.png" width = "600"><br>
 
-- [PICkit Serial I2C Demo Board](https://www.microchip.com/en-us/development-tool/PKSERIAL-I2C1) MCP9800 sensor on this board is used for the temperature sensor.
+- [PICkit Serial I2C Demo Board](https://www.microchip.com/en-us/development-tool/PKSERIAL-I2C1) MCP9800 sensor on this board is used for the temperature sensor
 
 <img src="images/i2c_demo_board.png" width = "600"><br>
 
-- [EEPROM 3 Click](https://www.mikroe.com/eeprom-3-click) from MIKROE 
+- [EEPROM 3 Click](https://www.mikroe.com/eeprom-3-click) from MIKROE
 
 <img src="images/eeprom-3-click.png" width = "600"><br>
 
@@ -47,35 +47,35 @@ A power supply must be connected to the V<sub>DDIO2</sub> pin. There are two pos
 **b.** Using Curiosity Nano, use V<sub>BUS</sub> as power supply, simply by connecting a wire between V<sub>BUS</sub> and V<sub>DDIO2</sub>.
 
 I2C Connections
-- [MCP9800 Temperature sensor
+- MCP9800 Temperature Sensor
 <br><img src="images/wiring_diagram.png" width = "600"><br>
-- [EEPROM 3 Click Board
+- EEPROM 3 Click Board
 <br><img src="images/i2c_connections.png" width = "600"><br>
 
 ## Initial Setup
 
-1. In the project resources window: check the dropdown box for **System** =>  click clock control.
+1. In the Project Resources window: check the dropdown box for **System** Then  click clock control.
    
 <br><img src= "images/project_resources_clock_control.png">
 
- 2. In the clock control window: go to the easy view tab, and set **Clock Settings** to **HFINTOSC**
+ 2. In the Clock Control window: go to the **Easy View** tab, and set **Clock Settings** to **HFINTOSC**. 
   - Clock Source: HFINTOSC
   - Internal Clock: 4 MHz
   - Clock Divider: 4
 
 <br><img src="images/clock_control.png">
 
-3. In the project resources window: check the dropdown box for **System** =>  click configuration bits.
+3. In the Project Resources window: check the dropdown box for **System** then  click Configuration Bits.
    
 <br><img src= "images/project_resources_configuration_bits.png">
 
- 4. In the configuration bits window: go to the easy view tab, and use Drop down boxes to set the **External Oscillator Selection** to **Oscillator not enabled** & **Reset Oscillator Selection** to **HFINTOSC w HFFRQ = 4 MHz and CDIV = 4:1**
+ 4. In the Configuration Bits window: go to the **Easy View** tab, and use dropdown boxes to set the **External Oscillator Selection** to **Oscillator not enabled** & **Reset Oscillator Selection** to **HFINTOSC w HFFRQ = 4 MHz and CDIV = 4:1**
   - External Oscillator: Disabled
   - Reset Oscillator: 4 MHz & Clock Divider 4:1
 
 <br><img src="images/config1.png">
 
-5. In the project resources window: check the dropdown box for **System** => check the dropdown box for **MVIO** click VDDIO2.
+5. In the Project Resources window: check the dropdown box for **System** then check the dropdown box for **MVIO** click VDDIO2.
 
 <br><img src="images/project_resources_mvio.png">
 
@@ -88,47 +88,50 @@ These are the settings for this example.
 
 ## Setup
 
-1. Under Device Resources in left-hand pane:
-   1. Open the **Drivers** drop-down
+Under Device Resources in left-hand pane:
+   1. Open the **Drivers** dropdown.
    2. Click the green plus sign next to **I2C_Host** peripheral to add them your project.
 
 <br><img src="images/add_i2c.png">
 
-In the project resources window: Click the dropdown box for Drivers => I2C => click **I2C1_Host**
+In the Project Resources window: Click the dropdown box for Drivers then I2C then click **I2C1_Host**.
 
 <br><img src="images/project_resources_i2c.png">
 
-In the I2C_Host window: go to the easy view tab, and use the dropdown box to select **I2C1**
+In the I2C_Host window: go to the **Easy View** tab, and use the dropdown box to select **I2C1**.
 
 <br><img src="images/select_i2c1.png">
 
-This is what the window will change to after making this setting
+This is what the window will change to after making this setting.
 
 <br><img src="images/i2c_host_easy_view.png">
-   1. Open the **Drivers** drop-down
+   1. Open the **Drivers** dropdown.
    2. Click the green plus sign next to **I2C_Host** peripheral to add them your project.
 
 <br><img src="images/add_i2c.png">
 
-In the project resources window: Click the dropdown box for Drivers => I2C => click **I2C2_Host**
+In the Project Resources window: Click the dropdown box for Drivers then I2C then click **I2C2_Host**.
 
 <br><img src="images/project_resources_i2c1.png">
 
-In the I2C_Host window: go to the easy view tab, verify the setting match the picture below.
+In the I2C_Host window: go to the **Easy View** tab, verify the setting match the picture below.
 
 <br><img src="images/i2c2_host_easy_view.png">
 
-In the Pin Grid View window: For I2C1 click on RC4 for **SCL1** & RC3 for **SDA1**. For I2C2 click on RB1 for **SCL2** & RB2 for **SDA2**. see below
+In the Pin Grid View window: For I2C1 click on **RC4** for **SCL1** & **RC3** for **SDA1**. For I2C2 click on **RB1** for **SCL2** & **RB2** for **SDA2**. See below.
+
 
 <br><img src="images/pin_grid_view1.png">
 
-In the project resources window: check the dropdown box for **System** => Click **Pins**.
+In the Project Resources window: check the dropdown box for **System** then click **Pins**.
 
 <br><img src="images/project_resources_pins.png">
 
-The Pins Tab shows up in MPLAB on the right side: select start high for all I<sup>2</sup>C pins
+The **Pins** Tab shows up in MPLAB on the right side: select Start High for all I<sup>2</sup>C pins.
+
 
 <br><img src="images/pins_i2c1.png">
+
 Code: main.c
 ```
 #include "mcc_generated_files/system/system.h"
@@ -273,11 +276,11 @@ uint16_t I2C1_Read_1ByteAdd_2ByteData(uint8_t address, uint8_t reg){
 
 
 ## Operation
-The example code starts with a I<sup>2</sup>C command to configure the MPC9800 then sends an I<sup>2</sup>C command to read the temperature Sensor. The 3rd step sends an I<sup>2</sup>C command to write the data to the EEPROM3 Click board delays for 5ms and then sends an I<sup>2</sup>C command to read from the EEPROM3 Click board. The MVIO is converting 5V to 3.3V and 3.3V to 5V when communicating with the EEPROM 3 Click board.
+The example code starts with an I<sup>2</sup>C command to configure the MPC9800 then sends an I<sup>2</sup>C command to read the temperature Sensor. The 3rd step sends an I<sup>2</sup>C command to write the data to the EEPROM3 Click board delays for 5 ms and then sends an I<sup>2</sup>C command to read from the EEPROM3 Click board. The MVIO is converting 5V to 3.3V and 3.3V to 5V when communicating with the EEPROM 3 Click board.
 
-saleae Capture of these I<sup>2</sup>C transactions
+Saleae. Capture of the I<sup>2</sup>C transactions
 
- - MCP980 I<sup>2</sup>C Command for Configuration of Temperature sensor
+ - MCP9800 I<sup>2</sup>C Command for Configuration of Temperature Sensor
  <br><img src="images/saleae_MCP9800_Config.png"><br>
  - MCP9800 I<sup>2</sup>C Read Command for Temperature Sensor
 <br><img src="images/saleae_mcp9800_read.png"><br>
