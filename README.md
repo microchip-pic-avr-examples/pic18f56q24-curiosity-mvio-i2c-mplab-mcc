@@ -290,5 +290,5 @@ Saleae. Capture of the I<sup>2</sup>C transactions
 <br><img src="images/saleae_eeprom_read.png"><br>
 
 ## Summary
-After Programming the device the PIC18F56Q24 sends an I<sup>2</sup>C command to configure the temperature sensor and then sends a command to read the temperature sensor. Now the microcontroller sends the data received to the EEPROM via I<sup>2</sup>C during these commands the MVIO module converts the 3.3V signals on the I<sup>2</sup>C bus to 5V for the EEPROM and the same the other way 5V signal from the EEPROM is converted to 3.3V for the microcontroller to interpret. These voltage levels can be seen in the saleae traces above.
+After Programming the device the PIC18F56Q24 sends an I<sup>2</sup>C command to configure the Temperature Sensor and then sends a command to read the Temperature Sensor. Now the microcontroller sends the received data to the EEPROM via I<sup>2</sup>C during these commands the MVIO module converts the 3.3V signals on the I<sup>2</sup>C bus to 5V for the EEPROM and the same the other way 5V signal from the EEPROM is converted to 3.3V for the microcontroller to interpret. These voltage levels can be seen in the saleae traces above.
 
