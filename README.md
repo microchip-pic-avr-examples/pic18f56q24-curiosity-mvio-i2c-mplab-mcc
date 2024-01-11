@@ -20,7 +20,7 @@ This example shows how to use the Multi-Voltage I/O (MVIO) for two different vol
 
 
 ## Hardware Used
-- [PIC18F56Q24 Curiosity Nano](https://www.microchip.com/en-us/development-tools-tools-and-software/development-tools-category-explorer?category=curiosityboards&subcategory=8-bit-curiosity-nano-boards) Development Board is used as a test platform
+- [PIC18F56Q24 Curiosity Nano](https://www.microchip.com/en-us/development-tools-tools-and-software/development-tools-category-explorer?category=curiosityboards&subcategory=8-bit-curiosity-nano-boards) Base for Click boards® is used as a test platform
 
 <img src="images/56Q24-Board.png" width = "600"><br>
 
