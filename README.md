@@ -102,7 +102,7 @@ In the I2C_Host window: go to the **Easy View** tab, and use the dropdown box to
 
 <br><img src="images/select_i2c1.png">
 
-This is what the window will change to after making this setting.
+After these settings, the window will display the following:
 
 <br><img src="images/i2c_host_easy_view.png">
    1. Open the **Drivers** dropdown.
