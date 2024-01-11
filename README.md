@@ -90,7 +90,7 @@ These are the settings for this example.
 
 In the left-hand pane, under **Device Resources**:
    1. Open the **Drivers** dropdown.
-   2. Click the green plus sign next to **I2C_Host** peripheral to add them your project.
+   2. Click the green plus sign next to the **I2C_Host** peripheral to add them to the project.
 
 <br><img src="images/add_i2c.png">
 
