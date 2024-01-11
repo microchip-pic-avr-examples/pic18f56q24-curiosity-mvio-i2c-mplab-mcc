@@ -65,7 +65,7 @@ I2C Connections
 
 <br><img src="images/clock_control.png">
 
-3. In the Project Resources window: check the dropdown box for **System** then  click Configuration Bits.
+3. In the **Project Resources** window: check the dropdown box for **System**, then  click Configuration Bits.
    
 <br><img src= "images/project_resources_configuration_bits.png">
 
