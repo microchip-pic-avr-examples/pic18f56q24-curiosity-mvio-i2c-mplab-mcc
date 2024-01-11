@@ -44,7 +44,7 @@ A power supply must be connected to the V<sub>DDIO2</sub> pin. There are two pos
 <br />
 **a.** Connecting an external DC power supply to the V<sub>DDIO2</sub> pin and GND.
 <br />
-**b.** Using Curiosity Nano, use V<sub>BUS</sub> as power supply, simply by connecting a wire between V<sub>BUS</sub> and V<sub>DDIO2</sub>.
+**b.** Together with the Curiosity Nano, use the V<sub>BUS</sub> as power supply, by connecting a wire between the V<sub>BUS</sub> and the V<sub>DDIO2</sub>.
 
 I2C Connections
 - MCP9800 Temperature Sensor
