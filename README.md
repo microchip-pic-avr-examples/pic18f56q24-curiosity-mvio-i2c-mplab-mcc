@@ -276,7 +276,7 @@ uint16_t I2C1_Read_1ByteAdd_2ByteData(uint8_t address, uint8_t reg){
 
 
 ## Operation
-The example code starts with an I<sup>2</sup>C command to configure the MPC9800 then sends an I<sup>2</sup>C command to read the temperature Sensor. The 3rd step sends an I<sup>2</sup>C command to write the data to the EEPROM3 Click board delays for 5 ms and then sends an I<sup>2</sup>C command to read from the EEPROM3 Click board. The MVIO is converting 5V to 3.3V and 3.3V to 5V when communicating with the EEPROM 3 Click board.
+The example code starts with an I<sup>2</sup>C command to configure the MPC9800 then sends an I<sup>2</sup>C command to read the Temperature Sensor. The 3rd step sends an I<sup>2</sup>C command to write the data to the EEPROM3 Click board delays for 5 ms and then sends an I<sup>2</sup>C command to read from the EEPROM 3 Click board. The MVIO is converting 5V to 3.3V and 3.3V to 5V when communicating with the EEPROM 3 Click board.
 
 Saleae. Capture of the I<sup>2</sup>C transactions
 
