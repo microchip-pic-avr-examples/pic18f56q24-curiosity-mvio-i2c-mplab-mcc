@@ -46,7 +46,7 @@ A power supply must be connected to the V<sub>DDIO2</sub> pin. There are two pos
 <br />
 **b.** Together with the Curiosity Nano, use the V<sub>BUS</sub> as power supply, by connecting a wire between the V<sub>BUS</sub> and the V<sub>DDIO2</sub>.
 
-I2C Connections
+I<sup>2</sup>C Connections
 - MCP9800 Temperature Sensor
 <br><img src="images/wiring_diagram.png" width = "600"><br>
 - EEPROM 3 Click Board
