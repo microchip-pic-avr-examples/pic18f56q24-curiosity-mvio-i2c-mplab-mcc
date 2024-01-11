@@ -54,7 +54,7 @@ I2C Connections
 
 ## Initial Setup
 
-1. In the Project Resources window: check the dropdown box for **System** Then  click clock control.
+1. In the **Project Resources** window: check the dropdown box for **System**, then click Clock Control.
    
 <br><img src= "images/project_resources_clock_control.png">
 
