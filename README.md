@@ -110,7 +110,7 @@ After these settings, the window will display the following:
 
 <br><img src="images/add_i2c.png">
 
-In the Project Resources window: Click the dropdown box for Drivers then I2C then click **I2C2_Host**.
+In the **Project Resources** window: Click the dropdown box for Drivers, then I<sup>2</sup>C, then click **I2C2_Host**.
 
 <br><img src="images/project_resources_i2c1.png">
 
