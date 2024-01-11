@@ -16,7 +16,7 @@ This example shows how to use the Multi-Voltage I/O (MVIO) for two different vol
 - [MPLAB XC8](http://www.microchip.com/mplab/compilers) v2.45 or newer
 - [PIC18F-Q_DFP Series Device Pack](https://packs.download.microchip.com) v1.23.425 or newer
 - [MPLAB Code Configurator](https://www.microchip.com/en-us/tools-resources/configure/mplab-code-configurator) 5.5.7 or newer
-- [MPLAB® Code Configurator Melody](https://www.microchip.com/en-us/tools-resources/configure/mplab-code-configurator/melody) core 2.6.2 or newer
+- [MPLAB Code Configurator Melody](https://www.microchip.com/en-us/tools-resources/configure/mplab-code-configurator/melody) core 2.6.2 or newer
 
 
 ## Hardware Used
