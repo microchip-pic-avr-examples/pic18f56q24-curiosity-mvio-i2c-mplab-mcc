@@ -75,7 +75,7 @@ I2C Connections
 
 <br><img src="images/config1.png">
 
-5. In the Project Resources window: check the dropdown box for **System** then check the dropdown box for **MVIO** click VDDIO2.
+5. In the **Project Resources** window: check the dropdown box for **System**, then check the dropdown box for **MVIO** click VDDIO2.
 
 <br><img src="images/project_resources_mvio.png">
 
