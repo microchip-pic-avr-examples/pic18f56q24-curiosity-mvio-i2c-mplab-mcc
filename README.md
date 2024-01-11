@@ -36,7 +36,7 @@ This example shows how to use the Multi-Voltage I/O (MVIO) for two different vol
 
 ## Prerequisites
 
-For MVIO to work together with the Curiosity Nano board, disconnect the R201 resistor connecting V<sub>DDIO2</sub> to VCC_TARGET.
+For the MVIO to work together with the Curiosity Nano board, disconnect the R201 resistor connecting V<sub>DDIO2</sub> to VCC_TARGET.
 
 <img src="images/56Q24-MVIO-BOARD.png" width = "300"><br>
 
