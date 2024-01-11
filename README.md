@@ -94,7 +94,7 @@ In the left-hand pane, under **Device Resources**:
 
 <br><img src="images/add_i2c.png">
 
-In the Project Resources window: Click the dropdown box for Drivers then I2C then click **I2C1_Host**.
+In the **Project Resources** window: Click the dropdown box for Drivers then I<sup>2</sup>C, then click **I2C1_Host**.
 
 <br><img src="images/project_resources_i2c.png">
 
