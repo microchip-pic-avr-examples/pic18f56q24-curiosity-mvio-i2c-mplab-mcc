@@ -123,7 +123,7 @@ In the Pin Grid View window: For I2C1 click on **RC4** for **SCL1** & **RC3** fo
 
 <br><img src="images/pin_grid_view1.png">
 
-In the Project Resources window: check the dropdown box for **System** then click **Pins**.
+In the **Project Resources** window: check the dropdown box for **System**, then click **Pins**.
 
 <br><img src="images/project_resources_pins.png">
 
