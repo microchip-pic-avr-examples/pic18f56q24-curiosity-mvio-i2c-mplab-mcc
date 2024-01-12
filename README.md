@@ -5,11 +5,12 @@
 # Multi-Voltage I/O (MVIO) Example Using I2C to Communicate with an EEPROM 3 Click board and MCP9800 Using the PIC18F56Q24 Microcontroller Generated with MCC Melody
 
 <!-- This is where the introduction to the example goes, including mentioning the peripherals used -->
-This example shows how to use the Multi-Voltage I/O (MVIO) for two different voltage domains, one voltage for the Microcontroller and a different one for the Sensor or in this example an EEPROM using the I<sup>2</sup>C communication. This example communicates with an MC9800 Temperature Sensor and saves the data to the EEPROM 3 Click board®.
+This example shows how to use the Multi-Voltage I/O (MVIO) for two different voltage domains, one voltage for the Microcontroller and a different one for the Sensor and or EEPROM. This example communicates with an MC9800 Temperature Sensor and saves the data to the EEPROM 3 Click board® using the I<sup>2</sup>C protocol.
 ## Related Documentation
 
 - [PIC18F-Q24 Family Product Page](https://www.microchip.com/en-us/product/PIC18F56Q24)
 - [PIC18F56Q24 Data Sheet](https://www.microchip.com/DS40002503)
+- [PIC18F56Q24 Getting Started with MVIO Code example](https://bitbucket.microchip.com/projects/EBE/repos/pic18f56q24-getting-started-with-mvio-mplab-mcc/browse)
 ## Software Used
 
 - [MPLAB® X IDE](http://www.microchip.com/mplab/mplab-x-ide) v6.15 or newer
@@ -20,7 +21,7 @@ This example shows how to use the Multi-Voltage I/O (MVIO) for two different vol
 
 
 ## Hardware Used
-- [PIC18F56Q24 Curiosity Nano](https://www.microchip.com/en-us/development-tools-tools-and-software/development-tools-category-explorer?category=curiosityboards&subcategory=8-bit-curiosity-nano-boards) Base for Click boards® is used as a test platform
+- [PIC18F56Q24 Curiosity Nano](https://www.microchip.com/en-us/development-tool/ev01e86a) 
 
 <img src="images/56Q24-Board.png" width = "600"><br>
 
@@ -33,6 +34,11 @@ This example shows how to use the Multi-Voltage I/O (MVIO) for two different vol
 <img src="images/eeprom-3-click.png" width = "600"><br>
 
 - [Saleae Logic Analyzer](https://www.saleae.com/)
+
+Optional:
+ - [Base board for Click boards](https://www.microchip.com/en-us/development-tool/AC164162)
+
+ <img src="images/baseboard_for_curiosity.png" width = "600"><br>
 
 ## Prerequisites
 
@@ -51,6 +57,7 @@ I<sup>2</sup>C Connections
 <br><img src="images/wiring_diagram.png" width = "600"><br>
 - EEPROM 3 Click Board
 <br><img src="images/i2c_connections.png" width = "600"><br>
+**NOTE:** Jumper setting on the EEPROM 3 Click Board has been changed to supply 5V and a wire between VDDIO2 and VBUS (5V). See above.
 
 ## Initial Setup
 
@@ -118,7 +125,7 @@ In the I2C_Host window: go to the **Easy View** tab, verify the setting match th
 
 <br><img src="images/i2c2_host_easy_view.png">
 
-In the Pin Grid View window: For I2C1 click on **RC4** for **SCL1** & **RC3** for **SDA1**. For I2C2 click on **RB1** for **SCL2** & **RB2** for **SDA2**. See below.
+In the Pin Grid View window: For I2C1 click on **RC4** for **SCL1** & **RC3** for **SDA1**. For I2C2 click on **RB1** for **SCL2** & **RB2** for **SDA2**. See below. **Note:** Brown shaded MVIO pins are supplied by the VDDIO2.
 
 
 <br><img src="images/pin_grid_view1.png">
@@ -282,10 +289,13 @@ Saleae. Capture of the I<sup>2</sup>C transactions
 
  - MCP9800 I<sup>2</sup>C Command for Configuration of Temperature Sensor
  <br><img src="images/saleae_MCP9800_Config.png"><br>
+ 
  - MCP9800 I<sup>2</sup>C Read Command for Temperature Sensor
 <br><img src="images/saleae_mcp9800_read.png"><br>
+
  - EEPROM 3 Click I<sup>2</sup>C Write command
 <br><img src="images/saleae_eeprom_write.png"><br>
+
  - EEPROM 3 Click I<sup>2</sup>C Read command
 <br><img src="images/saleae_eeprom_read.png"><br>
 
