@@ -5,7 +5,7 @@
 # Multi-Voltage I/O (MVIO) Example Using I2C to Communicate with an EEPROM 3 Click board and MCP9800 Using the PIC18F56Q24 Microcontroller Generated with MCC Melody
 
 <!-- This is where the introduction to the example goes, including mentioning the peripherals used -->
-This example shows how to use the Multi-Voltage I/O (MVIO) for two different voltage domains, one voltage for the Microcontroller and a different one for the Sensor and or EEPROM. This example communicates with an MC9800 Temperature Sensor and saves the data to the EEPROM 3 Click board® using the I<sup>2</sup>C protocol.
+This example shows how the Multi-Voltage I/O (MVIO) module can be used to interface components that operate at a voltage different than the main device operating voltage without any external hardware. In this example, the MCP9800 Temperature Sensor was interfaced using standard voltage domain since it operates at the same voltage as the microcontroller, and the EEPROM 3 Click board® was interfaced using the MVIO module since it operates at a voltage different than the main VDD of the microcontroller. For this demonstration, the temperature is measured using the MCP9800 sensor and the data is then stored to the  EEPROM 3 Click board® both using the I<sup>2</sup>C protocol.
 ## Related Documentation
 
 - [PIC18F-Q24 Family Product Page](https://www.microchip.com/en-us/product/PIC18F56Q24)
