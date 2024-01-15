@@ -125,7 +125,7 @@ In the I2C_Host window: go to the **Easy View** tab, verify the setting match th
 
 <br><img src="images/i2c2_host_easy_view.png">
 
-In the Pin Grid View window: For I2C1 click on **RC4** for **SCL1** & **RC3** for **SDA1**. For I2C2 click on **RB1** for **SCL2** & **RB2** for **SDA2**. See below. **Note:** Brown shaded MVIO pins are supplied by the VDDIO2.
+In the Pin Grid View window: For I2C1 click on **RC4** for **SCL1** & **RC3** for **SDA1**. For I2C2 click on **RB1** for **SCL2** & **RB2** for **SDA2**. See below. **Note:** Brown shaded MVIO pins are powered by the V<sub>DDIO2</sub> voltage domain.
 
 
 <br><img src="images/pin_grid_view1.png">
