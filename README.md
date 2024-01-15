@@ -147,7 +147,7 @@ Saleae. Capture of the I<sup>2</sup>C transactions
  <br><img src="images/saleae_MCP9800_Config.png"><br>
  
  - MCP9800 I<sup>2</sup>C Command to read value from Temperature Sensor (V<sub>DD</sub> voltage domain - 3.3V)
-```)
+
 <br><img src="images/saleae_mcp9800_read.png"><br>
 
  - EEPROM 3 Click I<sup>2</sup>C Write command to store measured temperature data onto external serial EEPROM device (V<sub>DDIO2</sub> voltage domain - 5V)
