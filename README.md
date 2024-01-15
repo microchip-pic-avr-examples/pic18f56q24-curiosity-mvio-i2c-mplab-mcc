@@ -287,7 +287,7 @@ The example code starts with an I<sup>2</sup>C command to configure the MPC9800 
 
 Saleae. Capture of the I<sup>2</sup>C transactions
 
- - MCP9800 I<sup>2</sup>C Command for Configuration of Temperature Sensor
+ - MCP9800 I<sup>2</sup>C Command for Configuration / Initialization of Temperature Sensor (V<sub>DD</sub> voltage domain - 3.3V)
  <br><img src="images/saleae_MCP9800_Config.png"><br>
  
  - MCP9800 I<sup>2</sup>C Command to read value from Temperature Sensor (V<sub>DD</sub> voltage domain - 3.3V)
