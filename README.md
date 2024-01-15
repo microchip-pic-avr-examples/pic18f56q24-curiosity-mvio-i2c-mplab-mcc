@@ -296,7 +296,7 @@ Saleae. Capture of the I<sup>2</sup>C transactions
  - EEPROM 3 Click I<sup>2</sup>C Write command
 <br><img src="images/saleae_eeprom_write.png"><br>
 
- - EEPROM 3 Click I<sup>2</sup>C Read command
+ - EEPROM 3 Click I<sup>2</sup>C Read command to verify data was stored correctly (V<sub>DDIO2</sub> voltage domain - 5V)
 <br><img src="images/saleae_eeprom_read.png"><br>
 
 ## Summary
