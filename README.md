@@ -57,7 +57,7 @@ I<sup>2</sup>C Connections
 <br><img src="images/wiring_diagram.png" width = "600"><br>
 - EEPROM 3 Click Board
 <br><img src="images/i2c_connections.png" width = "600"><br>
-**NOTE:** Jumper setting on the EEPROM 3 Click Board has been changed to supply 5V and a wire between VDDIO2 and VBUS (5V). See above.
+**NOTE:** Jumper setting on the EEPROM 3 Click Board has been changed to supply 5V and a wire between V<sub>DDIO2</sub> and V<sub>BUS</sub> (5V). See above.
 
 ## Initial Setup
 
@@ -82,7 +82,7 @@ I<sup>2</sup>C Connections
 
 <br><img src="images/config1.png">
 
-5. In the **Project Resources** window: check the dropdown box for **System**, then check the dropdown box for **MVIO** click VDDIO2.
+5. In the **Project Resources** window: check the dropdown box for **System**, then check the dropdown box for **MVIO** click V<sub>DDIO2</sub>.
 
 <br><img src="images/project_resources_mvio.png">
 
